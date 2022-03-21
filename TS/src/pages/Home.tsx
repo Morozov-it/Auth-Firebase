@@ -1,14 +1,15 @@
+import { FC } from 'react';
 import { useAuth } from 'hooks/useAuth';
-import React from 'react'
-import { useDispatch } from 'react-redux';
 import { removeUser } from 'store/slices/userSlice';
 import { Navigate } from "react-router-dom";
+import { useAppDispatch } from 'hooks/redux-hooks';
 
 
 
-const Home = () => {
+
+const Home: FC = () => {
     const { isAuth, email, token, id } = useAuth()
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     return (
         <div>

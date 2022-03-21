@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Form from './Form';
-import { useDispatch } from 'react-redux'
 import { setUser } from 'store/slices/userSlice';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useAppDispatch } from 'hooks/redux-hooks';
 
 
 
-
-const SignIn = () => {
+const SignIn: FC = () => {
     const navigate = useNavigate()
-    const [isError, setIsError] = useState('')
+    const [isError, setIsError] = useState<string>('')
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     
-    const onSubmit = async (email, password) => {
+    const onSubmit = async (email: string, password: string) => {
         try {
             //получение данных из бд firebase
             const auth = getAuth();
@@ -22,12 +21,12 @@ const SignIn = () => {
             console.log(user)
             dispatch(setUser({
                 email: user.email,
-                token: user.accessToken,
+                token: user.refreshToken,
                 id: user.uid,
             }))
             navigate('/')
-        } catch (error) {
-            setIsError(error.message)
+        } catch (e: any) {
+            setIsError(e.message)
         }
     }
 

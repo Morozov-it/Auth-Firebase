@@ -1,6 +1,11 @@
-import React, {useState} from 'react'
+import React, { FC, useState } from 'react'
 
-const Form = ({title, onSubmit}) => {
+interface IFormProps {
+    title: string,
+    onSubmit: (email: string, password: string)=>void
+}
+
+const Form: FC<IFormProps> = ({title, onSubmit}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
